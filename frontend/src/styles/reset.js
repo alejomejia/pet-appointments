@@ -11,10 +11,6 @@ const reset = css`
     &:after {
       box-sizing: border-box;
     }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-    }
   }
 `
 
