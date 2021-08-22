@@ -1,18 +1,42 @@
 import PropTypes from 'prop-types'
 
+import APPOINTMENTS from '../../../services/appointments'
+
 import { Flex, Text, Divider, Button } from '../../Common'
 import Icon from '../../Icon'
 
 import { Article } from './styled'
 
-const Item = ({ customer, pet, date, time, symptoms, handleDelete }) => {
+const Item = ({
+  id,
+  customer,
+  pet,
+  date,
+  time,
+  symptoms,
+  appointments,
+  setAppointments,
+}) => {
+  const handleDelete = (id) => {
+    const askForDelete = window.confirm(
+      'Are you sure you want to delete this appointment?'
+    )
+
+    askForDelete &&
+      APPOINTMENTS.remove(id).then(() =>
+        setAppointments(
+          appointments.filter((appointment) => appointment.id !== id)
+        )
+      )
+  }
+
   return (
     <Article>
       <Flex align="center" gap="4px">
         <Icon name="calendar" /> {date}
         <span> - </span>
         <Icon name="time" /> {time}
-        <Button onClick={handleDelete}>
+        <Button onClick={() => handleDelete(id)}>
           <Icon name="delete-bin" />
         </Button>
       </Flex>
@@ -33,21 +57,15 @@ const Item = ({ customer, pet, date, time, symptoms, handleDelete }) => {
   )
 }
 
-Item.defaultProps = {
-  customer: 'Alejandro Mejia',
-  pet: 'Misha & Chloe',
-  date: '2020/12/03',
-  time: '8:00 AM',
-  symptoms: 'I dont know whats happening with them',
-}
-
 Item.propTypes = {
+  id: PropTypes.string.isRequired,
   customer: PropTypes.string.isRequired,
   pet: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   symptoms: PropTypes.string.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  appointments: PropTypes.array.isRequired,
+  setAppointments: PropTypes.func.isRequired,
 }
 
 export default Item

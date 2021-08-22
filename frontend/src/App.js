@@ -1,3 +1,7 @@
+import { useState, useEffect } from 'react'
+
+import APPOINTMENTS from './services/appointments'
+
 import Layout from './components/Layout'
 import Sidebar from './components/Sidebar'
 import Main from './components/Main'
@@ -6,9 +10,11 @@ import { Title } from './components/Common'
 import Appointments from './components/Appointments'
 
 function App() {
-  const handleDelete = (e) => {
-    alert('clicked')
-  }
+  const [appointments, setAppointments] = useState([])
+
+  useEffect(() => {
+    APPOINTMENTS.getAll().then((appointments) => setAppointments(appointments))
+  }, [])
 
   return (
     <Layout>
@@ -17,16 +23,23 @@ function App() {
       </Sidebar>
       <Main>
         <Title as="h2" mb="24px">
-          No appointments yet
+          {appointments.length ? 'Appointments' : 'No appointments yet'}
         </Title>
         <Appointments>
-          <Appointments.Item handleDelete={handleDelete} />
-          <Appointments.Item handleDelete={handleDelete} />
-          <Appointments.Item handleDelete={handleDelete} />
-          <Appointments.Item handleDelete={handleDelete} />
-          <Appointments.Item handleDelete={handleDelete} />
-          <Appointments.Item handleDelete={handleDelete} />
-          <Appointments.Item handleDelete={handleDelete} />
+          {appointments &&
+            appointments.map((item) => (
+              <Appointments.Item
+                key={item.id}
+                id={item.id}
+                customer={item.customerName}
+                pet={item.petName}
+                date={item.date}
+                time={item.time}
+                symptoms={item.symptoms}
+                appointments={appointments}
+                setAppointments={setAppointments}
+              />
+            ))}
         </Appointments>
       </Main>
     </Layout>
