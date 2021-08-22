@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 import { Title, Button } from '../Common'
 import { Aside, Top, Body, Bottom, ScrollGradient } from './styled'
 
@@ -14,6 +16,10 @@ const Sidebar = ({ children }) => {
       </Bottom>
     </Aside>
   )
+}
+
+Sidebar.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default Sidebar

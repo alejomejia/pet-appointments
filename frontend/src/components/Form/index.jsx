@@ -6,7 +6,7 @@ const Form = () => {
       <Text mb="16px">
         Fill the form to make a <strong>new appointment</strong>
       </Text>
-      <Divider />
+      <Divider margin="16px 0" />
       <Label htmlFor="customer">Customer name</Label>
       <Input id="customer" type="text" />
       <Label htmlFor="pet">Pet name</Label>

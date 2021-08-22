@@ -21,10 +21,11 @@ export const Title = styled.h1`
 `
 
 export const Text = styled.p`
-  margin-bottom: 16px;
+  margin-bottom: ${({ marginBottom }) => marginBottom};
 `
 
 export const Divider = styled.hr`
+  margin: ${({ margin }) => margin};
   margin-bottom: 16px;
   border: none;
   border-top: 1px solid #ddd;
@@ -62,4 +63,11 @@ export const Button = styled.button`
     transform: translateY(-6px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
+`
+
+export const Flex = styled.div`
+  display: flex;
+  align-items: ${({ align }) => align};
+  justify-content: ${({ justify }) => justify};
+  gap: ${({ gap }) => gap};
 `

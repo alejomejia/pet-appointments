@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
 export const Section = styled.section`
-  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 `

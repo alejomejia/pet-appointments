@@ -1,7 +1,11 @@
 import styled from 'styled-components/macro'
 
 export const Aside = styled.aside`
-  max-height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  max-width: 280px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
