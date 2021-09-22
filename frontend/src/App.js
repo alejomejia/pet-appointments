@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import APPOINTMENTS from './services/appointments'
+import { getAppointments } from './redux/appointments'
 
 import Layout from './components/Layout'
 import Sidebar from './components/Sidebar'
@@ -10,10 +11,12 @@ import { Title } from './components/Common'
 import Appointments from './components/Appointments'
 
 function App() {
-  const [appointments, setAppointments] = useState([])
+  const dispatch = useDispatch()
+  const { appointments } = useSelector((state) => state.appointments)
 
   useEffect(() => {
-    APPOINTMENTS.getAll().then((appointments) => setAppointments(appointments))
+    dispatch(getAppointments())
+    // eslint-disable-next-line
   }, [])
 
   return (
@@ -36,8 +39,6 @@ function App() {
                 date={item.date}
                 time={item.time}
                 symptoms={item.symptoms}
-                appointments={appointments}
-                setAppointments={setAppointments}
               />
             ))}
         </Appointments>

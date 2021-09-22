@@ -1,33 +1,22 @@
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 
-import APPOINTMENTS from '../../../services/appointments'
+import { deleteAppointment } from '../../../redux/appointments'
 
 import { Flex, Text, Divider, Button } from '../../Common'
 import Icon from '../../Icon'
 
 import { Article } from './styled'
 
-const Item = ({
-  id,
-  customer,
-  pet,
-  date,
-  time,
-  symptoms,
-  appointments,
-  setAppointments,
-}) => {
+const Item = ({ id, customer, pet, date, time, symptoms }) => {
+  const dispatch = useDispatch()
+
   const handleDelete = (id) => {
     const askForDelete = window.confirm(
       'Are you sure you want to delete this appointment?'
     )
 
-    askForDelete &&
-      APPOINTMENTS.remove(id).then(() =>
-        setAppointments(
-          appointments.filter((appointment) => appointment.id !== id)
-        )
-      )
+    askForDelete && dispatch(deleteAppointment(id))
   }
 
   return (
@@ -64,8 +53,6 @@ Item.propTypes = {
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   symptoms: PropTypes.string.isRequired,
-  appointments: PropTypes.array.isRequired,
-  setAppointments: PropTypes.func.isRequired,
 }
 
 export default Item
